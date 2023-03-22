@@ -1,0 +1,704 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+// global rules 
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+    list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+    text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+    max-width: 100%;
+    display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+}
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    }
+}
+
+button {
+    border: none;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+input {
+    border: none;
+    outline: none;
+}
+
+.App {
+    position: relative;
+    height: 100vh;
+    background-image: url(../../public/BG.png);
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+    .main-article {
+        position: absolute;
+        height: 100%;
+        background-color: #7FDBC5;
+        transition: 0.7s;
+        .alert {
+            z-index: 3;
+            position: absolute;
+            left: 50%;
+            top: 0px;
+            width: fit-content;
+            border-radius: 4px;
+            font-size: 18px;
+            color: #fff;
+            padding: 5px 20px;
+            background-color: #c23616;
+            transform: translate(-50%,-100%);
+            transition: 0.7s;
+            text-align: center;
+            &.active {
+                transform: translate(-50%,50%);
+            }
+        }
+        .spin-btn {
+            position: absolute;
+            background-color: #146531;
+            color: #fff;
+            padding: 5px 50px;
+            z-index: 3;
+            height: 60px;
+            font-weight: 700;
+            font-size: 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            left: 50%;
+            bottom: 10%;
+            transform: translateX(-50%);
+            transition: 0.7s;
+            opacity: 0;
+            &.active {
+                bottom: 20%;
+                opacity: 1;
+            }
+        }
+        .slide-btn {
+            transition: 0.7s;
+            position: absolute;
+            background-color: #7FDBC5;
+            width: 80px;
+            height: 80px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            z-index: 5;
+            font-size: 40px;
+            color: #fff;
+            right: 0;
+            top: 80px;
+            transform: translateX(50%);
+            cursor: pointer;
+            .icon {
+                display: flex;
+                transition: 0.7s;
+                transform: rotateZ(0deg);
+            }
+            &::before,
+            &::after {
+                content: '';
+                position: absolute;
+                width: 40px;
+                height: 60px;
+                background-color: transparent;
+                transform: rotateZ(-15deg);
+                right: -2px;
+            }
+            &::before {
+                border-bottom-left-radius:40px 50px;
+                top: -40px;
+                transform: rotateZ(-4deg);
+                box-shadow: -10px 3px 0px 1px  #7FDBC5;
+            }
+            &::after {
+                border-top-left-radius:30px 50px;
+                bottom: -40px;
+                transform: rotateZ(4deg);
+                box-shadow: -10px -3px 0px 1px  #7FDBC5;
+            }
+        }
+        .spin-wheel-container {
+            position: absolute;
+            z-index: 2;
+            transition: 0.7s;
+            transform-style: preserve-3d;
+            img {
+                position: absolute;
+            }
+            .spin-wheel {
+                position: absolute;
+                background-color: #ECBA3F;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                backface-visibility: hidden;
+                overflow: hidden;
+                border: 10px solid #ECBA3F;
+                transition: transform 5s ease-out ;
+                .offer {
+                    transition: 0.7s;
+                    position: absolute;
+                    left: 50%;
+                    top: 0;
+                    transform-origin: bottom;
+                    height: 50%;
+                    background-color: #fff;
+                    clip-path: polygon(50% 100%, 0 0, 100% 0);
+                    display: flex;
+                    align-items: center;
+                    text-align: center;
+                    font-weight: 600;
+                    &.red {
+                        background-image: linear-gradient(#E50101,#FF6F6F);
+                        color: #fff;
+                    }
+                    &.gold {
+                        background-image: linear-gradient(#EFEFD1,#F1F1F1);
+                        color: #171814;
+                    }
+                }
+                .pointer {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 40px;
+                    height: 40px;
+                    background-color: #000000;
+                    z-index: 10;
+                    color: #fff;
+                    font-size: 20px;
+                    transition: 5s ease-in-out;
+                    &::before {
+                        position: absolute;
+                        content: '';
+                        clip-path: polygon(50% 0%, 15% 100%, 85% 100%);
+                        height: 20px;
+                        width: 20px;
+                        background-color: #000000;
+                        top: 2px;
+                        left: 50%;
+                        transform: translate(-50%,-100%);
+                    }
+                }
+            }
+        }
+        form {
+            position: absolute;
+            z-index: 2;
+            top: 50%;
+            left: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            transition: 0.7s;
+            h2 {
+                font-weight: 800;
+            }
+            .input {
+                position: relative;
+                background-color: #fff;
+                width: 100%;
+                span {
+                    position: absolute;
+                    left: 10px;
+                    color: #49454F;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    font-size: 32px;
+                    display: flex;
+                }
+                label {
+                    position: absolute;
+                    left: 50px;
+                    color: #49454F;
+                    top: 5%;
+                    font-size: 16px;
+                }
+                input {
+                    position: absolute;
+                    left: 50px;
+                    color: #49454F;
+                    bottom: 5%;
+                    font-size: 16px;
+                }
+            }
+            .checkbox {
+                border: 2px solid #000000;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                width: 100%;
+                input {
+                    width: 20px;
+                    height: 20px;
+                }
+                label {
+                    width: 90%;
+                }
+            }
+            button {
+                background-color: #146531;
+                color: #fff;
+                width: 100%;
+                font-weight: 700;
+            }
+            p {
+                width: 100%;
+                text-align: start;
+                font-size: 10px;
+            }
+            .cancel {
+                cursor: pointer;
+                display: flex;
+                font-size: 18px;
+                justify-content: flex-end;
+                span {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    font-size: 28px;
+                }
+            }
+            &.active {
+                transform: translate(-20%,-100%);
+                opacity: 0;
+            }
+            &.hide {
+                opacity: 0;
+            }
+        }
+        .the-gift {
+            position: absolute;
+            z-index: 2;
+            top: 50%;
+            left: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            transition: 0.7s;
+            text-align: center;
+            opacity: 1;
+            cursor: pointer;
+            .Congrats {
+                font-size: 28px;
+                font-weight: 700;
+            }
+            h2 {
+                font-size: 34px;
+                font-weight: 800;
+            }
+            .copy {
+                background-color:rgba($color: #141414, $alpha: 0.2);
+                color: #fff;
+                border-radius: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                button {
+                    height: 100%;
+                    width: 30%;
+                    border-radius: 0 24px 24px 0;
+                    background-color: #146531;
+                    color: #fff;
+                    font-size: 22px;
+                    font-weight: 500;
+                }
+                span {
+                    font-weight: 600;
+                }
+            }
+            .close {
+                background-color: #146531;
+                width: 80%;
+                height: 60px;
+                border-radius: 30px;
+                color: #fff;
+                font-size: 20px;
+                font-weight: 600;
+            }
+            .note {
+                color: #146531;
+            }
+            &.hide {
+                transform: translate(-20%,-20%);
+                opacity: 0;
+                z-index: -1;
+            }
+        }
+        .top-image {
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+        .bottom-image {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        &.active {
+            width: 100%;
+            .slide-btn {
+                .icon {
+                    transform: rotateZ(180deg);
+                }
+                transform:  translateX(30%);
+                background-color: #146531;
+                &::before,
+                &::after {
+                    box-shadow: -30px 3px 0px 1px  transparent;
+                    transition: 0.7s;
+                }
+            }
+        }
+        &.hide {
+            display: none;
+        }
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .main-article {
+        width: 60%;
+        .slide-btn {
+            display: flex;
+        }
+        form {
+            width: 420px;
+            height: 600px;
+            transform: translate(-20%,-50%);
+            h2 {
+                font-size: 34px;
+            }
+            .input {
+                height: 60px;
+            }
+            .checkbox {
+                height: 80px;
+                label {
+                    font-size: 12px;
+                }
+            }
+            button {
+                height: 80px;
+                border-radius: 40px;
+                font-size: 28px;
+            }
+        }
+        .the-gift {
+            width: 400px;
+            height: 460px;
+            transform: translate(-20%,-50%);
+            left: 50%;
+            .copy {
+                width: 80%;
+                height: 80px;
+                padding-left: 20px;
+                span {
+                    font-size: 38px;
+                }
+            }
+        }
+        .spin-wheel-container {
+            left: 0;
+            top: 50%;
+            width: 400px;
+            height: 400px;
+            transform:rotateY(0deg) translate(-50%,-50%);
+            &.active {
+                left: 50%;
+                transform:rotateY(180deg) translate(50%,-70%);
+            }
+            &.end {
+                left: 10%;
+                transform:rotateY(180deg) translate(50%,-50%);
+            }
+            .spin-wheel {
+                transform:rotateY(180deg);
+                .offer {
+                    width: 200px;
+                    padding: 0px 40px;
+                    padding-bottom: 80px;
+                    font-size: 14px;
+                }
+            }
+        }
+        &.active {
+            .spin-wheel-container {
+                left: 25%;
+                transform:rotateY(0deg) translate(-50%,-50%);
+                width: 500px;
+                height: 500px;
+                transform-style: preserve-3d;
+                &.active {
+                    left: 50%;
+                    transform:rotateY(180deg) translate(50%,-80%);
+                }
+                &.end {
+                    left: 10%;
+                    transform:rotateY(180deg) translate(50%,-50%);
+                }
+                .spin-wheel {
+                    transform:rotateY(180deg);
+                    .offer {
+                        width: 250px;
+                        padding: 0px 60px;
+                        padding-bottom: 80px;
+                        font-size: 18px;
+                    }
+                }
+            }
+            form {
+                transform: translate(20%,-50%);
+                &.active {
+                    transform: translate(40%,-100%);
+                }
+            }
+            .the-gift {
+                transform: translate(20%,-50%);
+            }
+        }
+    }
+}
+@media screen and (max-width:1200px) and (min-width:768px) {
+    .main-article {
+        width: 80%;
+        .slide-btn {
+            display: flex;
+        }
+        form {
+            transform: translate(-20%,-50%);
+            width: 360px;
+            height: 600px;
+            h2 {
+                font-size: 34px;
+            }
+            .input {
+                height: 60px;
+            }
+            .checkbox {
+                height: 80px;
+                label {
+                    font-size: 12px;
+                }
+            }
+            button {
+                height: 80px;
+                border-radius: 40px;
+                font-size: 28px;
+            }
+        }
+        .the-gift {
+            transform: translate(-20%,-50%);
+            width: 380px;
+            height: 460px;
+            .copy {
+                width: 80%;
+                height: 80px;
+                padding-left: 20px;
+                span {
+                    font-size: 38px;
+                }
+            }
+        }
+        .spin-wheel-container {
+            left: 0;
+            top: 50%;
+            width: 380px;
+            height: 380px;
+            transform:rotateY(0deg) translate(-50%,-50%);
+            &.active {
+                left: 50%;
+                transform:rotateY(180deg) translate(50%,-80%);
+            }
+            &.end {
+                left: 10%;
+                transform:rotateY(180deg) translate(50%,-50%);
+            }
+            .spin-wheel {
+                transform:rotateY(180deg);
+                .offer {
+                    width: 180px;
+                    padding: 0px 40px;
+                    padding-bottom: 80px;
+                    font-size: 14px;
+                }
+            }
+        }
+        &.active {
+            .spin-wheel-container {
+                left: 25%;
+                transform:rotateY(0deg) translate(-50%,-50%);
+                width: 380px;
+                height: 380px;
+                transform-style: preserve-3d;
+                &.active {
+                    left: 50%;
+                    transform:rotateY(180deg) translate(50%,-80%);
+                }
+                &.end {
+                    left: 10%;
+                    transform:rotateY(180deg) translate(50%,-50%);
+                }
+            }
+            form {
+                transform: translate(0%,-50%);
+                &.active {
+                    transform: translate(40%,-100%);
+                }
+            }
+            .the-gift {
+                transform: translate(0%,-50%);
+            }
+        }
+    }
+}
+@media screen and (max-width:768px) {
+    .main-article {
+        width: 100%;
+        .slide-btn {
+            display: none;
+        }
+        form {
+            width: 300px;
+            height: 600px;
+            transform: translate(-50%,-50%);
+            h2 {
+                font-size: 28px;
+            }
+            .input {
+                height: 50px;
+            }
+            .checkbox {
+                height: 60px;
+                label {
+                    font-size: 10px;
+                }
+            }
+            button {
+                height: 60px;
+                border-radius: 30px;
+                font-size: 20px;
+            }
+        }
+        .the-gift {
+            width: 290px;
+            height: 400px;
+            transform: translate(-50%,-25%);
+            .copy {
+                width: 90%;
+                height: 80px;
+                padding-left: 15px;
+                span {
+                    font-size: 28px;
+                }
+            }
+        }
+        .spin-wheel-container {
+            top: 0%;
+            left: 50%;
+            width: 290px;
+            height: 290px;
+            transform:rotateX(0deg) translate(-50%,-50%);
+            &.active {
+                top:50%;
+                transform:rotateY(180deg) translate(50%,-100%);
+            }
+            &.end {
+                top:30%;
+            }
+            .spin-wheel {
+                transform:rotateY(180deg);
+            }
+            .offer {
+                width: 140px;
+                padding: 0px 40px;
+                padding-bottom: 40px;
+                font-size: 10px;
+            }
+        }
+    }
+}
